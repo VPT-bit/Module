@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Check Out
+      uses: actions/checkout@main
+
+    - name: Setup
+      run: |
+        sudo apt install zip -y
+
+    - name: Build
+      run: |
+        sed -i "s/^version=.*/version=$(cat update/version.md)/g" "module/module.prop"
+        sed -i "s/^versionCode=.*/versionCode=$(cat update/versionCode.md)/g" "module/module.prop"
+        echo "TAG="v$(cat update/version.md)"" >> "$GITHUB_ENV"
+        cd module
+        zip -r module.zip ./*
+
+    - name: Upload Release
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: ${{ env.TAG }}
+        generate_release_notes: true
+        name: Optional Module
+        body_path: update/changelog.md
+        files: module/module.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
+        make_latest: true
