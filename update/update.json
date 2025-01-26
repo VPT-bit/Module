@@ -1,0 +1,6 @@
+{
+    "version": "version.md",
+    "versionCode": "versionCode.md",
+    "zipUrl": "https://github.com/VPT-bit/Module/releases/latest/download/module.zip",
+    "changelog": "changelod.md"
+}

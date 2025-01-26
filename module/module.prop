@@ -1,0 +1,7 @@
+id=vpt
+name=Optional Module
+version=
+versionCode=
+author=vpt_19
+description=Optional module to modify the system partition
+updateJson=https://raw.githubusercontent.com/VPT-bit/Module/refs/heads/main/update/update.json
